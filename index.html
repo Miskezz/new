@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Cup - Кав'ярня</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Навігація -->
+    <nav class="navbar">
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z" />
+            </svg>
+            BLACK CUP
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" onclick="closeMenu()">Головна</a></li>
+            <li><a href="#menu" onclick="closeMenu()">Меню</a></li>
+            <li><a href="#special" onclick="closeMenu()">Акції</a></li>
+            <li><a href="#about" onclick="closeMenu()">Про нас</a></li>
+            <li><a href="#gallery" onclick="closeMenu()">Галерея</a></li>
+            <li><a href="#contact" onclick="closeMenu()">Контакти</a></li>
+        </ul>
+        <div class="navbar-right">
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-badge" id="cart-count">0</span>
+            </div>
+            <button class="burger-btn" id="burger-btn" onclick="toggleMenu()" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Головний банер -->
+    <section class="hero" id="home">
+        <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/cofe (1).png" class="d-block w-100" alt="">
+                    <div class="hero-content carousel-caption d-none d-md-block">
+                        <h1>Кава, що заряджає Людей</h1>
+                        <p>Відчуйте справжній смак</p>
+                        <a href="#menu" class="cta-button">
+                            <span>Замовити зараз</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/cofe (2).png" class="d-block w-100" alt="...">
+                    <div class="hero-content carousel-caption d-none d-md-block">
+                        <h1>Кава, що заряджає Людей</h1>
+                        <p>Відчуйте справжній смак</p>
+                        <a href="#menu" class="cta-button">
+                            <span>Замовити зараз</span>
+                        </a>
+                    </div>
+                </div>
+                    <div class="carousel-item">
+                        <img src="img/cofe (3).png" class="d-block w-100" alt="...">
+                        <div class="hero-content carousel-caption d-none d-md-block">
+                            <h1>Кава, що заряджає Людей</h1>
+                            <p>Відчуйте справжній смак</p>
+                            <a href="#menu" class="cta-button">
+                                <span>Замовити зараз</span>
+                            </a>
+
+                        </div>
+                    </div>
+
+
+
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+    </section>
+    <!-- Меню -->
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">Наше Меню</h2>
+        <p class="section-subtitle">Оберіть свій ідеальний напій</p>
+        <div class="category-tabs" id="category-tabs">
+        </div>
+        <div class="menu-grid" id="menu-grid">
+        </div>
+    </section>
+
+    <!-- Спеціальні пропозиції -->
+    <section id="special" class="special-offers">
+        <h2 class="section-title">Спеціальні пропозиції</h2>
+        <p class="section-subtitle">Вигідні комбо та акції тижня</p>
+        <div class="offers-grid" id="offers-grid">
+        </div>
+    </section>
+
+    <!-- Про нас -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">Про нас</h2>
+        <div class="about-grid" id="about-grid">>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title">Наша атмосфера</h2>
+        <p class="section-subtitle">Затишний простір для вашого відпочинку</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&h=400&fit=crop"
+                    alt="Інтер'єр кав'ярні">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop"
+                    alt="Бариста за роботою">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop"
+                    alt="Кава та десерт">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop"
+                    alt="Затишний куточок">
+            </div>
+        </div>
+    </section>
+
+    <!-- Відгуки -->
+    <section class="reviews-section">
+        <h2 class="section-title">Відгуки клієнтів</h2>
+        <p class="section-subtitle">Що говорять наші гості</p>
+        <div class="reviews-grid" id="reviews-grid">
+        </div>
+    </section>
+
+    <!-- Контакти -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Контакти</h2>
+        <div class="contact-info" id="contact-info">
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Black Cup</h3>
+                <p>Найкраща кав'ярня в місті</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакти</h3>
+                <p class="footer-phone">☎️ +38 (099) 123-45-67</p>
+                <p class="footer-address">📍 вул. Шевченка, 39</p>
+            </div>
+            <div class="footer-section">
+                <h3>Слідкуйте за нами</h3>
+                <div class="social-links">
+                    <a href="https://instagram.com" target="_blank" title="Instagram">📷 Instagram</a>
+                    <a href="https://facebook.com" target="_blank" title="Facebook">👍 Facebook</a>
+                    <a href="https://t.me" target="_blank" title="Telegram">✈️ Telegram</a>
+                    <a href="https://wa.me" target="_blank" title="WhatsApp">💬 WhatsApp</a>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copyright">© 2026 Black Cup. Всі права захищені.</p>
+    </footer>
+
+    <!-- Сповіщення про додавання -->
+    <div class="notification" id="notification">
+        <span id="notification-text">✓ Товар додано до кошика</span>
+    </div>
+
+    <!-- Кошик -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h2 class="cart-title">Кошик</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart">
+                <p>Ваш кошик порожній</p>
+            </div>
+        </div>
+
+        <div class="cart-total" id="cart-total" style="display: none;">
+            Всього: <span id="total-price">0</span> грн
+        </div>
+        <button class="checkout-button" id="checkout-btn" onclick="checkout()" style="display: none;">
+            Оформити замовлення
+        </button>
+        <button class="delete-all-button" id="delete-all-btn" onclick="deleteAllItems()" style="display: none;">
+            Видалити всі товари
+        </button>
+    </div>
+
+    <!-- Модальне вікно підтвердження замовлення -->
+    <div class="order-overlay" id="order-overlay" onclick="closeOrderModal(event)">
+        <div class="order-modal" id="order-modal">
+            <div class="order-modal-header">
+                <div class="order-icon">☕</div>
+                <h2 class="order-modal-title">Підтвердження замовлення</h2>
+                <p class="order-modal-subtitle">Перевірте ваше замовлення перед відправкою</p>
+            </div>
+
+            <div class="order-items-list" id="order-items-list"></div>
+
+            <div class="order-divider"></div>
+
+            <div class="order-type-selection" style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px; font-weight: bold; font-size: 1.1rem;">Спосіб отримання:</p>
+                <div style="display: flex; gap: 20px; margin-bottom: 10px;">
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                        <input type="radio" name="orderType" value="pickup" checked onchange="toggleTableInput()"> Самовивіз
+                    </label>
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                        <input type="radio" name="orderType" value="table" onchange="toggleTableInput()"> За столиком
+                    </label>
+                </div>
+                <div id="table-number-container" style="display: none;">
+                    <input type="number" id="table-number" placeholder="Номер столика" class="form-control" min="1" style="background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border: 1px solid rgba(212, 165, 116, 0.5); padding: 10px; border-radius: 5px; width: 100%;">
+                </div>
+            </div>
+
+            <div class="order-total-row">
+                <span class="order-total-label">Загальна сума:</span>
+                <span class="order-total-amount" id="order-total-amount">0 грн</span>
+            </div>
+
+            <div class="order-actions">
+                <button class="order-cancel-btn" onclick="closeOrderModal()">
+                    Скасувати
+                </button>
+                <button class="order-confirm-btn" onclick="confirmOrder()">
+                    ✓ Підтвердити замовлення
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

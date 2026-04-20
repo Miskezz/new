@@ -1,0 +1,258 @@
+{ 
+  "categories": [
+    {
+      "id": "coffee",
+      "name": "Кава",
+      "items": [
+        {
+          "id": "cappuccino",
+          "name": "Капучино",
+          "price": 55,
+          "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "latte",
+          "name": "Латте",
+          "price": 60,
+          "image": "https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "americano",
+          "name": "Американо",
+          "price": 45,
+          "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&h=500&fit=crop"
+        },
+       
+        {
+          "id": "espresso",
+          "name": "Еспресо",
+          "price": 40,
+          "image": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "mocha",
+          "name": "Мохіто",
+          "price": 65,
+          "image": "https://images.unsplash.com/photo-1607260550778-aa9d29444ce1?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "flat-white",
+          "name": "Флет Вайт",
+          "price": 60,
+          "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&h=500&fit=crop"
+        }
+      ]
+    },
+    {
+      "id": "cold",
+      "name": "Холодні напої",
+      "items": [
+        {
+          "id": "ice-latte",
+          "name": "Айс Латте",
+          "price": 65,
+          "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "ice-americano",
+          "name": "Айс Американо",
+          "price": 50,
+          "image": "https://i.pinimg.com/736x/ee/5c/fc/ee5cfc0f10bfc454dda4c943b749866b.jpg"
+        },
+        {
+          "id": "frappe",
+          "name": "Фрапе",
+          "price": 70,
+          "image": "https://i.obozrevatel.com/food/recipemain/2019/11/4/frappe-710x473.jpg?size=636x424"
+        },
+        {
+          "id": "cold-brew",
+          "name": "Колд Брю",
+          "price": 75,
+          "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&h=500&fit=crop"
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "name": "Десерти",
+      "items": [
+        {
+          "id": "croissant",
+          "name": "Круасан",
+          "price": 45,
+          "image": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "cheesecake",
+          "name": "Чізкейк",
+          "price": 85,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnoJJRbsaYLx_EQHAuMyasWc5pPi69z0K1ow&s"
+        },
+        {
+          "id": "tiramisu",
+          "name": "Тірамісу",
+          "price": 90,
+          "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&h=500&fit=crop"
+        },
+        {
+          "id": "brownie",
+          "name": "Брауні",
+          "price": 65,
+          "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&h=500&fit=crop"
+        }
+      ]
+    },
+    {
+      "id": "tea",
+      "name": "Чаї",
+      "items": [
+        {
+          "id": "black-tea",
+          "name": "Чорний чай",
+          "price": 40,
+          "image": "https://deluxe.com.ua/media/img/uploads/image/article/black-tea-benefit-deluxe.jpg"
+        },
+        {
+          "id": "green-tea",
+          "name": "Зелений чай",
+          "price": 40,
+          "image": "https://nicetea.ua/uploads/webpn/uploads/images/articles/20250501_green-tea-benefits-effects-on-blood-pressure-sleep-and-metabolism/2025050102.webp?1746115060235"
+        },
+        {
+          "id": "chamomile-tea",
+          "name": "Ромашковий чай",
+          "price": 35,
+          "image": "https://www.pickwick.ua/siteassets/our-tea/what-is-camomile-tea/cup-of-tea-with-daisies.jpg"
+        },
+        {
+          "id": "matcha-tea",
+          "name": "Матча латте",
+          "price": 75,
+          "image": "https://api.papakava.ua/uploads/blogs/143/Ut3L1L9lA-q1fdVSYeA3l-ZptZje2rXl.jpg"
+        },
+        {
+          "id": "ginger-tea",
+          "name": "Імбирний чай",
+          "price": 45,
+          "image": "https://images.prom.ua/527423102_w600_h600_imbirnij-chaj-retsepti.jpg"
+        }
+      ]
+    },
+    {
+      "id": "milkshakes",
+      "name": "Молочні коктейлі",
+      "items": [
+        {
+          "id": "vanilla-shake",
+          "name": "Ванільний коктейль",
+          "price": 70,
+          "image": "https://nonna.com.ua/image/catalog/rolly/img_6048.jpeg"
+        },
+        {
+          "id": "strawberry-shake",
+          "name": "Полуничний коктейль",
+          "price": 75,
+          "image": "https://img2.zakaz.ua/upload20e204e425ad83aefddf474b85dcb7e6.jpg.350x.jpg"
+        },
+        {
+          "id": "chocolate-shake",
+          "name": "Шоколадний коктейль",
+          "price": 70,
+          "image": "https://coffeeynya.ua/image/cache/catalog/Recipes/shokoladnyj-koktejl-s-kakao-1200x900.jpg"
+        },
+        {
+          "id": "banana-shake",
+          "name": "Банановий коктейль",
+          "price": 75,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjR5kCHVLrxGA0qvbAy3ne6AixTCfbEANxUg&s"
+        },
+        {
+          "id": "oreo-shake",
+          "name": "Оріо коктейль",
+          "price": 85,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvtFPykKUsRJjE9ge3TDlVb8cWlB9mw-raA&s"
+        }
+      ]
+    }
+  ],
+  "about": [
+    {
+      "icon": "☕",
+      "title": "Якість зерна",
+      "description": "Тільки добірні зерна найкращої обсмаження."
+    },
+    {
+      "icon": "⚡",
+      "title": "Швидке обслуговування",
+      "description": "Завжди швидко готуємо ваше замовлення."
+    },
+    {
+      "icon": "🏙️",
+      "title": "Сільська атмосфера",
+      "description": "Стильний сучасний простір для відпочинку."
+    }
+  ],
+  "contact": {
+    "address": "c. Старі Кривотули, вул. Шевченка, 39",
+    "hours": {
+      "weekdays": "Пн-Пт: 8:00-20:00",
+      "weekend": "Сб-Нд: 9:00-19:00"
+    }
+  },
+  "specialOffers": [
+    {
+      "id": "combo1",
+      "title": "Ранковий комбо",
+      "description": "Кава + Круасан + Апельсиновий сік",
+      "price": 95,
+      "oldPrice": 130,
+      "badge": "-27%",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&h=500&fit=crop"
+    },
+    {
+      "id": "combo2",
+      "title": "Солодка пара",
+      "description": "Будь-який десерт + Капучино",
+      "price": 115,
+      "oldPrice": 140,
+      "badge": "-18%",
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&h=500&fit=crop"
+    },
+    {
+      "id": "combo3",
+      "title": "Холодний сет",
+      "description": "2 Айс Латте за ціною одного",
+      "price": 65,
+      "oldPrice": 130,
+      "badge": "-50%",
+      "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=500&h=500&fit=crop"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Марія Коваль",
+      "avatar": "М",
+      "rating": 5,
+      "text": "Найкраща кав'ярня в селі! Атмосфера просто чудова, кава завжди свіжа і смачна. Обов'язково повертаюсь сюди знову і знову.",
+      "date": "15 січня 2026"
+    },
+    {
+      "id": 2,
+      "author": "Андрій Петренко",
+      "avatar": "А",
+      "rating": 5,
+      "text": "Дуже смачний капучино та круасани! Персонал привітний, обслуговування швидке. Рекомендую всім!",
+      "date": "28 січня 2026"
+    },
+    {
+      "id": 3,
+      "author": "Ольга Іваненко",
+      "avatar": "О",
+      "rating": 5,
+      "text": "Чудове місце для роботи з ноутбуком. Смачна кава, швидкий Wi-Fi і затишна атмосфера. Мій улюблений заклад!",
+      "date": "1 лютого 2026"
+    }
+  ]
+}
