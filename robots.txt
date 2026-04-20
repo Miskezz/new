@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Блокуємо службові файли
+Disallow: /node_modules/
+Disallow: /.idea/
+Disallow: /.vscode/
+
+# Карта сайту
+Sitemap: https://blackcup.com.ua/sitemap.xml

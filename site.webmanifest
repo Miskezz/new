@@ -1,0 +1,25 @@
+{
+  "name": "Black Cup — Кав'ярня",
+  "short_name": "Black Cup",
+  "description": "Замовляйте каву та десерти онлайн у кав'ярні Black Cup",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#d4a574",
+  "lang": "uk",
+  "icons": [
+    {
+      "src": "/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["food", "shopping"]
+}
