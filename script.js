@@ -2,8 +2,9 @@
 function toggleMenu() {
     const navLinks = document.getElementById('nav-links');
     const burgerBtn = document.getElementById('burger-btn');
-    navLinks.classList.toggle('mobile-open');
+    const isOpen = navLinks.classList.toggle('mobile-open');
     burgerBtn.classList.toggle('open');
+    burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
 function closeMenu() {
@@ -11,6 +12,7 @@ function closeMenu() {
     const burgerBtn = document.getElementById('burger-btn');
     navLinks.classList.remove('mobile-open');
     burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', 'false');
 }
 
 document.addEventListener('click', function(e) {
@@ -27,12 +29,15 @@ let activeCategory = 'coffee';
 // Змінна для зберігання всіх даних меню
 let menuData = null;
 
-
-
 // Функція для завантаження даних з JSON
 function loadMenuData() {
     fetch('menu-data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Помилка завантаження меню: ' + response.status);
+            }
+            return response.json();
+        })
         .then(data => {
             menuData = data;
             displayCategories(data.categories);
@@ -41,6 +46,8 @@ function loadMenuData() {
             displayAbout(data.about);
             displayReviews(data.reviews);
             displayContact(data.contact);
+            // Запускаємо спостерігач анімацій після рендеру
+            initScrollAnimations();
         })
         .catch(error => {
             console.error('Помилка завантаження:', error);
@@ -59,19 +66,22 @@ function displayCategories(categories) {
             button.classList.add('active');
         }
         button.textContent = category.name;
-        button.onclick = () => changeCategory(category.id, categories);
+        // ВИПРАВЛЕНО: передаємо обидва аргументи явно, не покладаємось на event
+        button.addEventListener('click', function() {
+            changeCategory(category.id, categories, this);
+        });
         tabsContainer.appendChild(button);
     });
 }
 
-// Функція для зміни категорії
-function changeCategory(categoryId, categories) {
+// ВИПРАВЛЕНО: функція приймає кнопку як аргумент замість використання event
+function changeCategory(categoryId, categories, clickedBtn) {
     activeCategory = categoryId;
     
     // Оновлюємо активну кнопку
     const allTabs = document.querySelectorAll('.tab');
     allTabs.forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
+    if (clickedBtn) clickedBtn.classList.add('active');
     
     // Знаходимо товари вибраної категорії
     const selectedCategory = categories.find(cat => cat.id === categoryId);
@@ -88,8 +98,9 @@ function displayMenuItems(items) {
     items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'menu-item';
+        card.setAttribute('role', 'listitem');
         card.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="item-image">
+            <img src="${item.image}" alt="${item.name}" class="item-image" loading="lazy">
             <div class="item-info">
                 <h3 class="item-name">${item.name}</h3>
                 <p class="item-price">${item.price} грн.</p>
@@ -109,7 +120,6 @@ function addToCart(item) {
         cart.push({...item, quantity: 1});
     }
     
-    // Оновлюємо лічильник кошика
     updateCartCount();
     displayCart();
     showNotification(item.name || item.title);
@@ -139,19 +149,16 @@ function displayCart() {
     const checkoutBtn = document.getElementById('checkout-btn');
     const deleteAllBtn = document.getElementById('delete-all-btn');
     
-    // Якщо кошик порожній
     if (cart.length === 0) {
         cartItems.innerHTML = '<div class="empty-cart"><p>Ваш кошик порожній</p></div>';
         cartTotal.style.display = 'none';
         checkoutBtn.style.display = 'none';
         deleteAllBtn.style.display = 'none';
     } else {
-        // Якщо є товари в кошику
         cartItems.innerHTML = '';
         cart.forEach(item => {
             const cartItem = document.createElement('div');
             cartItem.className = 'cart-item';
-            // Використовуємо name для звичайних товарів, title для комбо
             const itemName = item.name || item.title;
             cartItem.innerHTML = `
                 <img src="${item.image}" alt="${itemName}" class="cart-item-image">
@@ -163,7 +170,6 @@ function displayCart() {
             cartItems.appendChild(cartItem);
         });
         
-        // Рахуємо і показуємо загальну суму
         const total = calculateTotal();
         document.getElementById('total-price').textContent = total;
         cartTotal.style.display = 'block';
@@ -184,7 +190,8 @@ function calculateTotal() {
 // Функція для оновлення лічильника кошика
 function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
-    cartCount.textContent = cart.length;
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
 }
 
 // Функція для видалення всіх товарів з кошика
@@ -195,11 +202,10 @@ function deleteAllItems() {
     showNotification('Кошик очищено');
 }
 
-// Функція для оформлення замовлення — відкриває красивий модальний діалог
+// Функція для оформлення замовлення
 function checkout() {
     if (cart.length === 0) return;
 
-    // Заповнюємо список товарів у модалці
     const orderItemsList = document.getElementById('order-items-list');
     orderItemsList.innerHTML = '';
 
@@ -219,11 +225,16 @@ function checkout() {
         orderItemsList.appendChild(row);
     });
 
-    // Встановлюємо загальну суму
     const total = calculateTotal();
     document.getElementById('order-total-amount').textContent = `${total} грн`;
 
-    // Показуємо модалку з анімацією
+    // Скидаємо вибір типу замовлення на самовивіз
+    const pickupRadio = document.querySelector('input[name="orderType"][value="pickup"]');
+    if (pickupRadio) {
+        pickupRadio.checked = true;
+        document.getElementById('table-number-container').style.display = 'none';
+    }
+
     const overlay = document.getElementById('order-overlay');
     overlay.classList.add('visible');
     setTimeout(() => {
@@ -231,8 +242,9 @@ function checkout() {
     }, 10);
 }
 
-// Закрити модальне вікно (також спрацьовує при кліку на фон)
+// Закрити модальне вікно
 function closeOrderModal(event) {
+    // Якщо викликано без аргументу (з кнопки "Скасувати") — завжди закривати
     if (event && event.target !== document.getElementById('order-overlay')) return;
     const overlay = document.getElementById('order-overlay');
     const modal = document.getElementById('order-modal');
@@ -242,16 +254,17 @@ function closeOrderModal(event) {
 
 // Показати/сховати поле для вводу номера столика
 function toggleTableInput() {
-    const isTable = document.querySelector('input[name="orderType"]:checked').value === 'table';
+    const checked = document.querySelector('input[name="orderType"]:checked');
+    if (!checked) return;
+    const isTable = checked.value === 'table';
     document.getElementById('table-number-container').style.display = isTable ? 'block' : 'none';
 }
 
 // Підтвердити замовлення
-function confirmOrder() {
+async function confirmOrder() {
     const modal = document.getElementById('order-modal');
     const overlay = document.getElementById('order-overlay');
 
-    // Отримуємо тип замовлення та номер столика
     const orderType = document.querySelector('input[name="orderType"]:checked').value;
     let orderDetailsText = orderType === 'pickup' ? "Спосіб отримання: Самовивіз 🛍" : "Спосіб отримання: За столиком 🍽";
     
@@ -271,39 +284,47 @@ function confirmOrder() {
     
     cart.forEach(item => {
         const itemName = item.name || item.title;
-        messageText += `▪️ ${itemName} x${item.quantity} - ${item.price * item.quantity} грн\n`;
+        messageText += `▪️ ${itemName} x${item.quantity} — ${item.price * item.quantity} грн\n`;
     });
     
     messageText += `\n💰 <b>Загальна сума: ${calculateTotal()} грн</b>`;
 
-    // ЗАМІНІТЬ 'YOUR_BOT_TOKEN' та 'YOUR_CHAT_ID' на ваші дані від Telegram
-    const BOT_TOKEN = '8708383278:AAGWuryFQL59U8FKHdPepo8-rqv4VeAR6io'; 
+    // Конфігурація Telegram-бота
+    const BOT_TOKEN = '8708383278:AAGWuryFQL59U8FKHdPepo8-rqv4VeAR6io';
     const CHAT_ID = '-1003866545944';
 
-    // Відправка повідомлення в Telegram
+    // ВИПРАВЛЕНО: повна обробка відповіді Telegram API з перевіркою ok та логуванням помилок
     if (BOT_TOKEN && BOT_TOKEN !== 'YOUR_BOT_TOKEN') {
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: messageText,
-                parse_mode: 'HTML'
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                console.error("Помилка API Telegram:", response.statusText);
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: messageText,
+                    parse_mode: 'HTML'
+                })
+            });
+
+            const result = await response.json();
+
+            if (!result.ok) {
+                // Telegram повернув помилку — логуємо, але НЕ зупиняємо процес
+                console.error('Telegram API error:', result.description, '| error_code:', result.error_code);
+            } else {
+                console.log('✅ Замовлення відправлено в Telegram, message_id:', result.result.message_id);
             }
-        })
-        .catch(error => console.error("Помилка відправки в Telegram:", error));
+        } catch (error) {
+            // Мережева помилка — логуємо, але НЕ зупиняємо процес оформлення
+            console.error('Помилка відправки в Telegram:', error.message);
+        }
     } else {
         console.warn("Телеграм бот не налаштовано. Текст повідомлення:", messageText);
     }
 
-    // Зберігаємо оригінальний HTML модалки, щоб відновити його пізніше
+    // Зберігаємо оригінальний HTML модалки для відновлення
     const originalHTML = modal.innerHTML;
 
     // Показуємо екран успіху
@@ -315,17 +336,15 @@ function confirmOrder() {
         </div>
     `;
 
-    // Через 2 секунди закрити, очистити кошик і ВІДНОВИТИ структуру модалки
+    // Через 2.2с закриваємо та відновлюємо структуру
     setTimeout(() => {
         modal.classList.remove('visible');
         setTimeout(() => {
             overlay.classList.remove('visible');
-            // Відновлюємо HTML модалки для наступного замовлення
             modal.innerHTML = originalHTML;
             cart = [];
             updateCartCount();
             displayCart();
-            // Закриваємо кошик якщо відкритий
             const cartModal = document.getElementById('cart-modal');
             if (cartModal.classList.contains('open')) toggleCart();
         }, 300);
@@ -354,15 +373,12 @@ function displaySpecialOffers(offers) {
     const offersGrid = document.getElementById('offers-grid');
     offersGrid.innerHTML = '';
 
-    
-    // Це простий цикл forEach - він проходить по кожній пропозиції
     offers.forEach(offer => {
         const card = document.createElement('div');
         card.className = 'offer-card';
-        // Тепер додаємо фото в картку
         card.innerHTML = `
             <div class="offer-badge">${offer.badge}</div>
-            <img src="${offer.image}" alt="${offer.title}" class="offer-image">
+            <img src="${offer.image}" alt="${offer.title}" class="offer-image" loading="lazy">
             <h3 class="offer-title">${offer.title}</h3>
             <p class="offer-description">${offer.description}</p>
             <div class="offer-old-price">${offer.oldPrice} грн</div>
@@ -380,15 +396,12 @@ function displayReviews(reviews) {
     const reviewsGrid = document.getElementById('reviews-grid');
     reviewsGrid.innerHTML = '';
     
-    // Проходимо по кожному відгуку
     reviews.forEach(review => {
-        // Створюємо зірочки для рейтингу
         let stars = '';
         for (let i = 0; i < review.rating; i++) {
             stars += '⭐';
         }
         
-        // Створюємо картку відгуку
         const card = document.createElement('div');
         card.className = 'review-card';
         card.innerHTML = `
@@ -422,12 +435,42 @@ function displayContact(contactData) {
     `;
 }
 
+function initScrollAnimations() {
+    const animatableSelectors = [
+        '.about-card',
+        '.review-card',
+        '.gallery-item',
+        '.offer-card',
+        '.contact-item'
+    ];
+
+    const elements = document.querySelectorAll(animatableSelectors.join(','));
+
+    if (!('IntersectionObserver' in window)) return; // Fallback для старих браузерів
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('anim-visible');
+                observer.unobserve(entry.target); // Спрацьовує лише раз
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    elements.forEach((el, index) => {
+        el.classList.add('anim-hidden');
+        // Невеликий stagger-ефект для карток в одному ряду
+        el.style.transitionDelay = `${(index % 4) * 0.08}s`;
+        observer.observe(el);
+    });
+}
+
 // Викликаємо функцію завантаження при завантаженні сторінки
 window.onload = function() {
     loadMenuData();
 };
-
-
-
 
 

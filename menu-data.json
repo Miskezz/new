@@ -1,4 +1,4 @@
-{ 
+{
   "categories": [
     {
       "id": "coffee",
@@ -22,7 +22,6 @@
           "price": 45,
           "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&h=500&fit=crop"
         },
-       
         {
           "id": "espresso",
           "name": "Еспресо",
